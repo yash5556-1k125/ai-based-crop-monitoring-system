@@ -1,0 +1,50 @@
+# Comprehensive System Architecture: AI Crop Monitoring
+
+This document serves as the master record of all features, architecture decisions, and modules built for the AI Crop Monitoring application so far. The project has evolved from a basic image upload tool into a multi-module simulated Real-Time Farming Intelligence dashboard.
+
+## 1. Core Architecture
+- Framework: React 18, Vite Bundler. 
+- Styling: Custom Vanilla CSS utilizing a heavily modern, premium glassmorphic design system (index.css) emphasizing translucent panels, vibrant nature gradients, and highly responsive framer-motion animations.
+- Routing: Handled via react-router-dom incorporating App.jsx as the layout wrapper and Navigation.jsx for the active header.
+
+## 2. Global State Management (Context API)
+- UserContext.jsx: A globally persistent profile engine tied to localStorage.
+- Inputs: Allows farmers to define their Indian State/Region and specific Farm Size (in Acres).
+- Effect: Every module dynamically cross-references this context. The AI calculates specific absolute quantities (e.g., 1.5kg * Farm Size) rather than static estimations.
+
+## 3. Advanced Diagnostic Image Pipeline
+- Analyze.jsx & Dropzone.jsx: Drag-and-drop interface for crop leaf images. Includes simulated load cycles.
+- aiService.js (Mock AI Engine): Parses uploaded filenames deterministically (healthy, blight, mildew, etc.). 
+- Results.jsx Display Panel:
+  - Disease Detection: Maps out the condition, confidence levels, and severity.
+  - Treatment Scaling: Dynamically renders Water Modification ratios and explicit Pesticide/Fertilizer volumes.
+  - Computer Vision Metrics: Predicts Leaf Area Index (LAI), Yield Counting algorithms (mock YOLO outputs), and parses macro-nutrient spectroscopy mapping (Nitrogen/Potassium distribution).
+
+## 4. Hyper-Local Environmental Dashboard
+- Location: Managed within the Home.jsx central hub.
+- Micro-Climate Downscaling: Calculates predictive temperature/humidity localized explicitly to the user's defined Farm Acreage rather than generic country-wide data.
+- XGBoost Pest Alerts: Simulated machine learning probability tracker that warns farmers of imminent pest migration (e.g., Aphids) based on upcoming humidity spikes.
+
+## 5. Geo-Spatial Satellite Telemetry
+- Location: Managed within Satellite.jsx.
+- Function: Displays a mock Sentinel-2 radar heat-map of the local farm coordinate. 
+- Metrics: Actively reads and charts NDVI (Photosynthetic greenness score), NDMI (Water stress), and Thermal Topsoil Moisture indices. 
+
+## 6. Commodities Economics Engine
+- Location: Managed within Market.jsx.
+- Visuals: Integrates recharts for an interactive 6-month line graph simulating LSTM predictive market cycles for commodities (Wheat, Soybeans, Corn).
+- Strategy Output: Evaluates satellite maturity against future weather grids to dictate a highly specific Optimal Harvest Window, ensuring maximum yield shelf-life and market sale value.
+
+## 7. Generative RAG "Farm Manager"
+- Location: FarmChat.jsx (Global component, rendering on top of all routes).
+- Interface: A floating bottom-right chat widget mimicking an LLM connection.
+- Function: Understands context (checks local pest probabilities or harvest schedules) and responds intelligently to user queries.
+
+## 8. Development Environment (Sample Data)
+To assist with UI testing, a sample_images directory was created locally featuring generative mock examples meant to interface perfectly with aiService.js:
+- healthy_corn_leaf.png
+- tomato_early_blight.png
+- wheat_nitrogen_deficiency.png
+- grape_powdery_mildew.png
+- soybean_potassium_deficiency.png
+- cotton_spider_mite.png
